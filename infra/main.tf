@@ -615,7 +615,7 @@ module "acr"{
 module "sharepoint" {
   count                               = var.is_secure_mode ? 0 : var.enableSharePointConnector ? 1 : 0
   source                              = "./core/sharepoint"
-  location                            = usgovvirginia
+  location                            = "usgovvirginia"
   resource_group_name                 = "infoasst-rg-hfet-001"
   resource_group_id                   = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   subscription_id                     = data.azurerm_client_config.current.subscription_id
