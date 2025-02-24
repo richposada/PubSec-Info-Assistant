@@ -877,7 +877,7 @@ module "openAiRoleMgmt" {
   roleDefinitionId = local.azure_roles.CognitiveServicesOpenAIUser
   principalType   = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 // DEPLOYMENT OF AZURE CUSTOMER ATTRIBUTION TAG
