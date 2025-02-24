@@ -617,7 +617,7 @@ module "sharepoint" {
   source                              = "./core/sharepoint"
   location                            = azurerm_resource_group.rg.location
   resource_group_name                 = "infoasst-rg-hfet-001"
-  resource_group_id                   = azurerm_resource_group.rg.id
+  resource_group_id                   = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   subscription_id                     = data.azurerm_client_config.current.subscription_id
   storage_account_name                = module.storage.name
   storage_access_key                  = module.storage.storage_account_access_key
@@ -656,12 +656,12 @@ module "userRoles" {
   source = "./core/security/role"
   for_each = { for role in local.selected_roles : role => { role_definition_id = local.azure_roles[role] } }
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = data.azurerm_client_config.current.object_id 
   roleDefinitionId = each.value.role_definition_id
   principalType    = var.isInAutomation ? "ServicePrincipal" : "User"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 resource "azurerm_cosmosdb_sql_role_assignment" "user_cosmosdb_data_contributor" {
@@ -681,155 +681,155 @@ data "azurerm_resource_group" "existing" {
 module "webApp_OpenAiRole" {
   source = "./core/security/role"
 
-  scope            = var.useExistingAOAIService ? data.azurerm_resource_group.existing[0].id : azurerm_resource_group.rg.id
+  scope            = var.useExistingAOAIService ? data.azurerm_resource_group.existing[0].id : "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.webapp.identityPrincipalId
   roleDefinitionId = local.azure_roles.CognitiveServicesOpenAIUser
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "enrichmentApp_OpenAiRole" {
   source = "./core/security/role"
 
-  scope            = var.useExistingAOAIService ? data.azurerm_resource_group.existing[0].id : azurerm_resource_group.rg.id
+  scope            = var.useExistingAOAIService ? data.azurerm_resource_group.existing[0].id : "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.enrichmentApp.identityPrincipalId
   roleDefinitionId = local.azure_roles.CognitiveServicesOpenAIUser
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "webApp_CognitiveServicesUser" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.webapp.identityPrincipalId
   roleDefinitionId = local.azure_roles.CognitiveServicesUser
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "functionApp_CognitiveServicesUser" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.functions.identityPrincipalId
   roleDefinitionId = local.azure_roles.CognitiveServicesUser
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "enrichmentApp_CognitiveServicesUser" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.enrichmentApp.identityPrincipalId
   roleDefinitionId = local.azure_roles.CognitiveServicesUser
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "enrichmentApp_StorageQueueDataContributor" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.enrichmentApp.identityPrincipalId
   roleDefinitionId = local.azure_roles.StorageQueueDataContributor
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "functionApp_StorageQueueDataContributor" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.functions.identityPrincipalId
   roleDefinitionId = local.azure_roles.StorageQueueDataContributor
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "webApp_StorageBlobDataContributor" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.webapp.identityPrincipalId
   roleDefinitionId = local.azure_roles.StorageBlobDataContributor
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "webApp_SearchIndexDataReader" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.webapp.identityPrincipalId
   roleDefinitionId = local.azure_roles.SearchIndexDataReader
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "functionApp_SearchIndexDataContributor" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.functions.identityPrincipalId
   roleDefinitionId = local.azure_roles.SearchIndexDataContributor
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "encrichmentApp_SearchIndexDataContributor" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.enrichmentApp.identityPrincipalId
   roleDefinitionId = local.azure_roles.SearchIndexDataContributor
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "fuctionApp_StorageBlobDataOwner" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.functions.identityPrincipalId
   roleDefinitionId = local.azure_roles.StorageBlobDataOwner
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "enrichmentApp_StorageBlobDataOwner" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.enrichmentApp.identityPrincipalId
   roleDefinitionId = local.azure_roles.StorageBlobDataOwner
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 module "fuctionApp_StorageAccountContributor" {
   source = "./core/security/role"
 
-  scope            = azurerm_resource_group.rg.id
+  scope            = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId      = module.functions.identityPrincipalId
   roleDefinitionId = local.azure_roles.StorageAccountContributor
   principalType    = "ServicePrincipal"
   subscriptionId   = data.azurerm_client_config.current.subscription_id
-  resourceGroupId  = azurerm_resource_group.rg.id
+  resourceGroupId  = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 resource "azurerm_cosmosdb_sql_role_assignment" "webApp_cosmosdb_data_contributor" {
@@ -858,12 +858,12 @@ resource "azurerm_cosmosdb_sql_role_assignment" "enrichmentApp_cosmosdb_data_con
 
 module "docIntel_StorageBlobDataReader" {
   source = "./core/security/role"
-  scope = azurerm_resource_group.rg.id
+  scope = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
   principalId = module.aiDocIntelligence.docIntelligenceIdentity
   roleDefinitionId = local.azure_roles.StorageBlobDataReader
   principalType = "ServicePrincipal"
   subscriptionId = data.azurerm_client_config.current.subscription_id
-  resourceGroupId = azurerm_resource_group.rg.id
+  resourceGroupId = "/subscriptions/1f70443e-91ac-4265-80e9-97c7f0ca57fa/resourceGroups/infoasst-rg-hfet-001"
 }
 
 # // MANAGEMENT SERVICE PRINCIPAL ROLES
