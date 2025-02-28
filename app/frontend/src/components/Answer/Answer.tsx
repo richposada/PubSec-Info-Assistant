@@ -94,7 +94,7 @@ export const Answer = ({
             <Stack.Item grow>
                 {(answer.approach != Approaches.GPTDirect) &&
                     <div className={styles.protectedBanner}>
-                        <ShieldCheckmark20Regular></ShieldCheckmark20Regular>Your personal and company data are protected
+                        <ShieldCheckmark20Regular></ShieldCheckmark20Regular>Your personal and organization data are protected
                     </div>
                 }
                 { answer.answer && <div className={answer.approach == Approaches.GPTDirect ? styles.answerTextUngrounded : styles.answerText}><ReactMarkdown children={parsedAnswer.answerHtml} rehypePlugins={[rehypeRaw, rehypeSanitize]}></ReactMarkdown></div> }
