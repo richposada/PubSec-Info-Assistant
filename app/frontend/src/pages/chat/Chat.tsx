@@ -4,7 +4,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Separator, Toggle, Label } from "@fluentui/react";
 import Switch from 'react-switch';
-import { GlobeFilled, BuildingMultipleFilled, AddFilled, ChatSparkleFilled } from "@fluentui/react-icons";
+import { GlobeFilled, AirplaneLandingFilled,BuildingMultipleFilled, AddFilled, ChatSparkleFilled } from "@fluentui/react-icons";
 import { ITag } from '@fluentui/react/lib/Pickers';
 
 import styles from "./Chat.module.css";
@@ -353,9 +353,9 @@ const Chat = () => {
                             {activeChatMode == ChatMode.WorkOnly ? 
                                 <div>
                                     <div className={styles.chatEmptyStateHeader}> 
-                                        <BuildingMultipleFilled fontSize={"100px"} primaryFill={"rgba(27, 74, 239, 1)"} aria-hidden="true" aria-label="Chat with your Work Data logo" />
+                                        <AirplaneLandingFilled fontSize={"100px"} primaryFill={"rgba(27, 74, 239, 1)"} aria-hidden="true" aria-label="Chat with AFRL History" />
                                         </div>
-                                    <h1 className={styles.chatEmptyStateTitle}>Chat with your work data</h1>
+                                    <h1 className={styles.chatEmptyStateTitle}>Chat with AFRL History</h1>
                                 </div>
                             : activeChatMode == ChatMode.WorkPlusWeb ?
                                 <div>
@@ -438,7 +438,7 @@ const Chat = () => {
                         )}
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. Who are Microsoft's top executives, provided as a table?)"
+                            placeholder="Type a new question (e.g. Do you have information about the SR-71 Blackbird?)"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question, defaultApproach, {}, {}, {})}
                             onAdjustClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)}
